@@ -1,0 +1,37 @@
+body {
+  background-color: darksalmon;
+}
+
+#wrapper {
+  width: 1000px;
+  background-color: white;
+  margin: 0 auto;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  padding: 100px;
+}
+
+#chat-window {
+  width: 800px;
+  height: 600px;
+  padding: 10px;
+  font-size: 24px;
+  text-align: left;
+  line-height: 1.6;
+  overflow: scroll;
+  border-left: 1px solid gainsboro;
+  border-top: 1px solid gainsboro;
+  border-right: 1px solid gainsboro;
+
+}
+
+#chat-form {
+  width: 800px;
+}
+
+#chat-form .form-group {
+  width: 100%;
+}
+
+#chat-form .input-lg {
+  width: 90%;
+}
