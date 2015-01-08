@@ -1,0 +1,16 @@
+{
+  "name": "nagchat",
+  "version": "1.0.0",
+  "description": "Node.js chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tim Sandberg",
+  "license": "ISC",
+  "dependencies" : {
+    "socket.io" : "1.0.x",
+    "mime" : "~1.2.7",
+    "node-static" : "^0.7.4"
+  }
+}
