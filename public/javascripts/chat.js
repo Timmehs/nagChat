@@ -5,8 +5,8 @@
     this.socket = socket;
   }
 
-  Chat.prototype.sendMessage = function(msg) {
-    this.socket.emit('message', msg);
+  Chat.prototype.sendMessage = function(opts) {
+    this.socket.emit('message', {user: opts.user, text: opts.text} );
   };
 
 

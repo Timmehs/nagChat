@@ -17,10 +17,10 @@
   <script type="text/javascript" charset="utf-8">
 
     var socket = io();
-    
+
     $(function () {
-      var chat = new NagChat.Chat(socket);
-      var chatUI = new NagChat.ChatUI(chat);
+      window.chat = new NagChat.Chat(socket);
+      window.chatUI = new NagChat.ChatUI(chat);
     });
 
 
@@ -40,8 +40,8 @@
 
     <form id="chat-form" class="form-inline">
       <div class="form-group">
-        <input type="text" class="form-control input-lg" placeholder="Nag here!">
-        <input type="submit" value="Send" class="btn btn-primary btn-lg">
+          <input type="text" class="form-control input-lg" placeholder="">
+          <input type="submit" value="Send" class="btn btn-primary btn-lg">
       </div>
     </form>
 
