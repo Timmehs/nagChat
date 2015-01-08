@@ -25,22 +25,27 @@
   };
 
   ChatUI.prototype.registerListeners = function() {
-    var ui = this;
+    this.messageListener(this);
+    this.submitHandler(this);
+  };
 
-    this.chat.socket.on('message', function (msg) {
-
-      ui.$chatwindow.append(
-        "<strong style='color: blue;'>" + msg.user + "</strong>: " + msg.text + "<br>"
-      );
-
-      console.log(data);
-    });
-
-
-    ui.$chatForm.on("submit", function(e) {
+  ChatUI.prototype.submitHandler = function(ui) {
+    this.$chatForm.on("submit", function(e) {
       e.preventDefault();
       ui.processInput();
     });
+  };
+
+  ChatUI.prototype.messageListener = function(ui) {
+    this.chat.socket.on('message', function (msg) {
+      ui.updateChatWindow(msg);
+    });
+  };
+
+  ChatUI.prototype.updateChatWindow = function (msg) {
+    this.$chatwindow.append(
+      "<strong style='color: blue;'>" + msg.user + "</strong>: " + msg.text + "<br>"
+    );
   };
 
   ChatUI.prototype.processInput = function() {
@@ -59,9 +64,9 @@
   ChatUI.prototype.processCommand = function(cmd) {
     var full_command = cmd.split('/')[1].split(' ');
     var command = full_command[0];
-    var args = full_command[1];
+    var arg = full_command[1];
     if (this.isValidCommand(command)) {
-      this.commands[command](this, args);
+      this.commands[command](this, arg);
     } else {
       console.log('invalid command');
     }
