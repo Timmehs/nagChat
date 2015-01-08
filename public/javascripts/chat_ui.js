@@ -1,54 +1,84 @@
-(function(rootObject) {
+(function (rootObject) {
 
   var NagChat = rootObject.NagChat = (rootObject.NagChat || {});
 
   var ChatUI = NagChat.ChatUI = function (chat) {
     this.chat = chat;
-    this.$chatwindow = $("#chat-window");
+    this.$chatWindow = $("#chat-window");
+    this.$chatText = $('#chat-text');
     this.$chatForm = $('#chat-form');
     this.$userName = $('#username');
     this.$textField = $('.input-lg');
     this.user = "Anonymous";
     this.$textField.attr("placeholder", "Nagging as '" + this.user + "'");
+    this.commands = {
+      "nick" : this.changeNick.bind(this),
+      "changeRoom" : function () { console.log('changeroom'); }
+    };
 
 
     this.registerListeners();
   };
 
-  ChatUI.prototype.commands = {
-    "nick" : function(ui, name) {
-      console.log(name);
-      ui.user = name;
-      ui.$textField.attr("placeholder", "Nagging as '" + ui.user + "'");
-    },
-    "changeRoom" : function() { console.log('changeroom'); }
+  commands = {
+    "nick" : this.changeNick,
+    "changeRoom" : function () { console.log('changeroom'); }
   };
 
-  ChatUI.prototype.registerListeners = function() {
+  ChatUI.prototype.changeNick = function (nickname) {
+    this.chat.changeNick(nickname);
+  };
+
+  ChatUI.prototype.connectionListener = function (ui) {
+    this.chat.socket.on('connectionResponse', function (res) {
+      ui.updateNick(res.nick);
+    });
+  };
+
+  ChatUI.prototype.nickChangeListener = function (ui) {
+    this.chat.socket.on('nicknameChangeResult', function (res) {
+      if (res.success) {
+        ui.updateNick(res.nick);
+      } else {
+        console.log(res.nick + ' invalid');
+      }
+    });
+  }
+
+  ChatUI.prototype.registerListeners = function () {
+    this.connectionListener(this);
     this.messageListener(this);
     this.submitHandler(this);
+    this.nickChangeListener(this)
   };
 
-  ChatUI.prototype.submitHandler = function(ui) {
-    this.$chatForm.on("submit", function(e) {
+  ChatUI.prototype.submitHandler = function (ui) {
+    this.$chatForm.on("submit", function (e) {
       e.preventDefault();
       ui.processInput();
     });
   };
 
-  ChatUI.prototype.messageListener = function(ui) {
+  ChatUI.prototype.messageListener = function (ui) {
     this.chat.socket.on('message', function (msg) {
       ui.updateChatWindow(msg);
     });
   };
 
   ChatUI.prototype.updateChatWindow = function (msg) {
-    this.$chatwindow.append(
-      "<strong style='color: blue;'>" + msg.user + "</strong>: " + msg.text + "<br>"
+    this.$chatText.append(
+      "<strong style='color: salmon;'>" + msg.user + "</strong>: " + msg.text + "<br>"
     );
+    this.$chatWindow.animate({ scrollTop: $('#chat-window')[0].scrollHeight}, 1000);
   };
 
-  ChatUI.prototype.processInput = function() {
+  ChatUI.prototype.updateNick = function (name) {
+    this.user = name;
+    this.$textField.attr(
+      "placeholder", "Nagging as '" + this.user + "'. Commands: /nick <name>");
+  };
+
+  ChatUI.prototype.processInput = function () {
     var messageTxt = $('.input-lg').val();
     if (messageTxt == "") return;
 
@@ -61,22 +91,22 @@
     $('.input-lg').val('');
   };
 
-  ChatUI.prototype.processCommand = function(cmd) {
+  ChatUI.prototype.processCommand = function (cmd) {
     var full_command = cmd.split('/')[1].split(' ');
     var command = full_command[0];
     var arg = full_command[1];
     if (this.isValidCommand(command)) {
-      this.commands[command](this, arg);
+      this.commands[command](arg);
     } else {
       console.log('invalid command');
     }
   };
 
-  ChatUI.prototype.isCommand = function(str) {
+  ChatUI.prototype.isCommand = function (str) {
     return str[0] === "/";
   };
 
-  ChatUI.prototype.isValidCommand = function(cmd) {
+  ChatUI.prototype.isValidCommand = function (cmd) {
     return this.commands.hasOwnProperty(cmd);
   };
 
