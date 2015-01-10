@@ -5,9 +5,9 @@ body {
 #wrapper {
   width: 1000px;
   background-color: white;
+  height: 100%;
   text-align: center;
   margin: 0 auto;
-  margin-top: 30px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   padding-top: 20px;
   padding-bottom: 100px;
@@ -18,20 +18,21 @@ body {
 
 #chat-window {
   width: 800px;
-  height: 600px;
-  padding: 10px;
+  height: 400px;
   font-size: 24px;
   text-align: left;
+  padding: 5px;
   line-height: 1.6;
   overflow-y: scroll;
   position: relative;
-  border-left: 1px solid gainsboro;
-  border-top: 1px solid gainsboro;
-  border-right: 1px solid gainsboro;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+
 }
 
 #chat-text {
-  width: 780px;
+  width: 100%;
+  font-size: 16px;
   position: relative;
   bottom: 0px;
 }
@@ -40,10 +41,8 @@ body {
   width: 800px;
 }
 
-#chat-form .form-group {
-  width: 100%;
-}
-
-#chat-form .input-lg {
-  width: 90%;
+#chat-form .row {
+  margin-left: 0px;
+  margin-right: -3px;
+  margin-top: 8px;
 }

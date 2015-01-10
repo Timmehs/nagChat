@@ -8,7 +8,7 @@
     this.$chatText = $('#chat-text');
     this.$chatForm = $('#chat-form');
     this.$userName = $('#username');
-    this.$textField = $('.input-lg');
+    this.$textField = $('.input-field');
     this.user = "Anonymous";
     this.$textField.attr("placeholder", "Nagging as '" + this.user + "'");
     this.commands = {
@@ -80,7 +80,7 @@
   };
 
   ChatUI.prototype.processInput = function () {
-    var messageTxt = $('.input-lg').val();
+    var messageTxt = this.$textField.val();
     if (messageTxt == "") return;
 
     if (this.isCommand(messageTxt)) {
@@ -89,7 +89,7 @@
       this.chat.sendMessage({ user: this.user, text: messageTxt } );
     }
 
-    $('.input-lg').val('');
+    this.$textField.val('');
   };
 
   ChatUI.prototype.processCommand = function (cmd) {
