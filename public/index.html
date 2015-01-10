@@ -4,7 +4,7 @@
   <script src="/socket.io/socket.io.js"></script>
 
   <!-- jQuery -->
-  <script src="javascripts/vendor/jquery.min.js"></script>
+  <script src="javascripts/jquery.min.js"></script>
 
   <!-- Bootstrap CDN Links -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,13 +18,10 @@
   <script type="text/javascript" charset="utf-8">
 
     var socket = io();
-
     $(function () {
       window.chat = new NagChat.Chat(socket);
       window.chatUI = new NagChat.ChatUI(chat);
     });
-
-
 
   </script>
 

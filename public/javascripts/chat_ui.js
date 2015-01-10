@@ -32,6 +32,7 @@
   ChatUI.prototype.connectionListener = function (ui) {
     this.chat.socket.on('connectionResponse', function (res) {
       ui.updateNick(res.nick);
+      console.log('connectionRes');
     });
   };
 
