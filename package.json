@@ -2,13 +2,13 @@
   "name": "nagchat",
   "version": "1.0.0",
   "description": "Node.js chat app",
-  "main": "lib/app.js",
+  "main": "app.js",
   "scripts": {
     "start" : "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tim Sandberg",
   "license": "ISC",
+
   "dependencies" : {
     "socket.io" : "1.0.x",
     "mime" : "~1.2.7",

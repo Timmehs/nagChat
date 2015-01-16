@@ -59,10 +59,6 @@ var createChatServer = function (server) {
       nick: name
     });
   };
-}
-
-
-
-
+};
 
 module.exports = createChatServer;

@@ -1,5 +1,4 @@
-var http = require('http'),
-  static = require('node-static');
+var http = require('http'), static = require('node-static');
 
 var file = new static.Server('./public');
 
