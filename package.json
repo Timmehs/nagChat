@@ -4,11 +4,10 @@
   "description": "Node.js chat app",
   "main": "app.js",
   "scripts": {
-    "start" : "node app.js",
+    "start" : "node app.js"
   },
   "author": "Tim Sandberg",
   "license": "ISC",
-
   "dependencies" : {
     "socket.io" : "1.0.x",
     "mime" : "~1.2.7",
