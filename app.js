@@ -8,7 +8,7 @@ var server = http.createServer(function (req, res) {
   }).resume();
 });
 
-server.listen(8000);
+server.listen(process.env.PORT || 8080);
 
 var createChatServer = require('./chat_server');
 createChatServer(server);
