@@ -10,7 +10,7 @@
     this.$userName = $('#username');
     this.$textField = $('.input-field');
     this.user = "Anonymous";
-    this.$textField.attr("placeholder", "Nagging as '" + this.user + "'");
+    this.$textField.attr("placeholder", "Nagging as '" + this.user + "'. Commands: /nick <name>");
     this.commands = {
       "nick" : this.changeNick.bind(this),
       "changeRoom" : function () { console.log('changeroom'); }
